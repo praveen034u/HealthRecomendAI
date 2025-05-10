@@ -43,6 +43,8 @@ Connect to EC2 via SSH:
 bash
 Copy
 ssh -i your-key.pem ec2-user@your-ec2-public-ip
+ssh -i VirtualHeathAPIKey.pem ec2-user@ec2-54-84-47-62.compute-1.amazonaws.com
+
 Step 2: Install Dependencies
 Once connected to the EC2 instance, install the necessary packages:
 
@@ -104,7 +106,13 @@ Run FastAPI to test:
 bash
 Copy
 uvicorn app:app --host 0.0.0.0 --port 8000
+
+cd ~/VirtualHeathAPI-PredictiveAI
+source venv/bin/activate
+nohup uvicorn main:app --host 0.0.0.0 --port 8000 --reload > output.log 2>&1 &
+
 Open http://your-ec2-public-ip:8000 in your browser.
+http://54.84.47.62:8000/docs#/default/predict_combined_predict_combined_post
 
 If you see {"message":"Hello, FastAPI on EC2!"}, it’s working.
 
